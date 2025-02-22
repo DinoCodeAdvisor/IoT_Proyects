@@ -8,7 +8,7 @@ from picozero import pico_led
 # Ensure Wi-Fi is connected before running
 connect_wifi(secrets.SSID, secrets.PASSWORD)
 
-# Loop to send data every 15 minutes
+# Loop to send data every 180 seconds
 while True:
     pico_led.on()
     sensor_value = read_temperature() 
