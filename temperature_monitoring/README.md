@@ -83,7 +83,14 @@ while True:
 - The script continuously runs, sending temperature data to ThingSpeak.
 - The built-in Pico LED blinks as a visual indicator when data is sent.
 
+## How it looks after running
+![image](https://github.com/user-attachments/assets/84aa9d2b-5174-4ff0-b990-d37f6ef89149)
+
+- If configured also the matlab code it should look like this
+- ![image](https://github.com/user-attachments/assets/1c4a565d-1250-4609-bb3f-9bdaebb7b8a8)
+- ![image](https://github.com/user-attachments/assets/97ee6d7c-8d56-4273-95ea-b131a53c9d7a)
+
 ## Troubleshooting
-- **Wi-Fi not connecting?** Double-check your SSID and password in `secrets.py`.
+- **Wi-Fi not connecting?** Double-check your SSID and password in `secrets.py`; Also check the network used is 2.4G. 
 - **Data not showing on ThingSpeak?** Ensure your API key is correct and your channel is set up to receive data.
 - **Script not running properly?** Restart the Pico W and verify all dependencies are installed.
