@@ -172,6 +172,3 @@ If you encounter any issues while using the **Network Connection** project, refe
 If you continue to experience issues, feel free to create a new issue on the repository with detailed information about the problem and any error messages you encountered.
 
 ---
-
-This section should help guide users through some of the common issues they might face and provide solutions to resolve them.
-
