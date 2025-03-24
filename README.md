@@ -8,6 +8,10 @@ This repository contains multiple IoT projects, each stored in its respective fo
    *Folder:* `temperature_logger/`  
    *Description:* Reads the internal temperature sensor of a Raspberry Pi Pico W and uploads data to ThingSpeak every 180 seconds.
 
+2. **Network Connection**  
+   *Folder:* `network_connection/`  
+   *Description:* Allows the user to connect to an ESP32 server and interact with its internal LED. The data is then uploaded to a ThingSpeak chart. The user can turn the internal LED on or off via a web interface and monitor the status of the LED.
+
 ---
 
 ## Getting Started
