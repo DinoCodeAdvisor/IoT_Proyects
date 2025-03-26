@@ -65,15 +65,18 @@ def start_server():
         request = cl.recv(1024)
         request = str(request)
 
-        if '/homepage' in request:
+        
+        if '/' in request and not '/poll' in request and not '/data' in request:
             send_html(cl)
         elif '/poll/makevote' in request:
             print("Make poll called");
             response = json.dumps({f"{WATCHDOG_KEY}": "Vote submited"})
             cl.send("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n" + response)
-        elif f'/data/{WATCHDOG_KEY}':
+        elif f'/data/{WATCHDOG_KEY}' in request:
             print("Retrieving and sending data");
             response = json.dumps({"data": 10, f"{WATCHDOG_KEY}": "authenticated"})
+            cl.send("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n" + response)
+            
             
             
             
