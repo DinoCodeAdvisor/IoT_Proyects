@@ -3,6 +3,7 @@
 #include <HTTPClient.h>
 #include "secrets.h"
 
+#pragma once
 void connectToWiFi()
 {
     if (WiFi.status() != WL_CONNECTED)
@@ -38,6 +39,7 @@ void connectToWiFi()
     }
 }
 
+#pragma once
 void uploadToThingSpeak(int value)
 {
     if (WiFi.status() != WL_CONNECTED)
