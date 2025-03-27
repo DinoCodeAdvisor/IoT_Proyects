@@ -9,6 +9,7 @@ PASSWORD = 'HERE GOES YOUR PASSWORD'  # Replace with your WiFi password
 
 # Credential
 WATCHDOG_KEY = "HERE GOES YOUR WATCHDOG_KEY" # Use the same as you placed in your secrets.h in your ESP32
+STATIC_IP = 'HERE GOES THE RASPBERRY STATIC_IP' #Example: 192.168.3.104
 
 # Function to connect to WiFi
 def connect_to_wifi():
@@ -19,9 +20,9 @@ def connect_to_wifi():
     while not wlan.isconnected():
         time.sleep(1)
     
-    wlan.ifconfig(('192.168.3.100', '255.255.255.0', '192.168.3.100', '8.8.8.8'))
+    wlan.ifconfig((STATIC_IP, '255.255.255.0', STATIC_IP, '8.8.8.8'))
     
-    print("Connected to WiFi, IP:", '192.168.3.100')
+    print("Connected to WiFi, IP:", STATIC_IP)
 
 # Function to serve the HTML page with the current LED status
 def send_html(client):
@@ -43,6 +44,7 @@ def send_html(client):
 <body>
 <h1>DinoRPi Pico W Web Server (Node 1)</h1>
 <h3>Using Access Point(AP) Mode</h3>"""
+    html += f"<h2>IP {STATIC_IP}</h2>"
     
     html += "</body></html>"
     client.send(html)
@@ -65,7 +67,6 @@ def start_server():
         request = cl.recv(1024)
         request = str(request)
 
-        
         if '/' in request and not '/poll' in request and not '/data' in request:
             send_html(cl)
         elif '/poll/makevote' in request:
@@ -74,11 +75,8 @@ def start_server():
             cl.send("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n" + response)
         elif f'/data/{WATCHDOG_KEY}' in request:
             print("Retrieving and sending data");
-            response = json.dumps({"data": 10, f"{WATCHDOG_KEY}": "authenticated"})
+            response = json.dumps({"data": 100, f"{WATCHDOG_KEY}": "authenticated"})
             cl.send("HTTP/1.1 200 OK\r\nContent-Type: application/json\r\n\r\n" + response)
-            
-            
-            
             
         cl.close()
 
