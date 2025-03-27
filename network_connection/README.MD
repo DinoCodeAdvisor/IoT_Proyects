@@ -47,6 +47,7 @@ The project consists of the following files:
     #define WIFI_SSID "YOUR NETWORK NAME"
     #define WIFI_PASSWORD "YOUR NETWORK PASSWORD"
     #define ThingSpeak_API_KEY "YOUR API KEY"
+    #define WATCHDOG_KEY "YOUR WATCHDOG KEY"
     ```
 
 5. VSCode Project Profile Setup:
@@ -72,6 +73,7 @@ This file holds sensitive information such as your Wi-Fi credentials and ThingSp
 #define WIFI_SSID "YOUR NETWORK NAME"
 #define WIFI_PASSWORD "YOUR NETWORK PASSWORD"
 #define ThingSpeak_API_KEY "YOUR API KEY"
+#define WATCHDOG_KEY "YOUR WATCHDOG KEY"
 ```
 
 ### `utils.h`
@@ -110,8 +112,8 @@ This is the main code for the ESP32, which sets up a web server and handles comm
    - Called when a non-existent URL is accessed.
    - Sends a 404 "Not Found" response.
 
-5. **`SendHTML(InternalLEDStatus)`**
-   - Generates the HTML page that displays the current status of the internal LED and provides buttons to turn it ON or OFF.
+5. **`SendHTML(IPAddress devicesIPs[6], String deviceStatus[6], String lastPingSuccessful[6], String lastPingAttempt[6])`**
+   - Generates the HTML page that displays the current status of the 6 nodes.
 
 ## Troubleshooting
 
@@ -132,15 +134,7 @@ If you encounter any issues while using the **Network Connection** project, refe
    - After connecting to the ESP32 Wi-Fi, open a web browser and type the IP address printed in the serial monitor (e.g., `192.168.x.x`).
    - Make sure that the ESP32 is not overloaded with too many devices connected, as it can limit the number of simultaneous connections.
 
-### 3. **LED Control Not Working**
-- **Problem:** The internal LED doesn't respond to the ON/OFF button.
-- **Solution:**
-   - Verify the LED wiring is correct and that the internal LED is connected to the correct pin (`GPIO2` by default).
-   - Ensure that the `InternalLEDPIN` is set to the correct pin in `main.cpp` (it defaults to `2`).
-   - Check the web interface for correct HTML buttons and responses.
-   - Open the serial monitor and check if any errors or warnings are logged when you attempt to control the LED.
-
-### 4. **Data Not Showing on ThingSpeak**
+### 3. **Data Not Showing on ThingSpeak**
 - **Problem:** The data is not being sent or displayed on ThingSpeak.
 - **Solution:**
    - Ensure that the ThingSpeak API key is correctly set in `secrets.h` under `ThingSpeak_API_KEY`.
@@ -148,21 +142,21 @@ If you encounter any issues while using the **Network Connection** project, refe
    - Check your network connection to make sure the ESP32 has internet access when uploading data to ThingSpeak.
    - Monitor the serial output for any HTTP errors (e.g., invalid HTTP codes) that could prevent successful data upload.
 
-### 5. **ESP32 Keeps Rebooting**
+### 4. **ESP32 Keeps Rebooting**
 - **Problem:** The ESP32 repeatedly reboots or resets itself.
 - **Solution:** 
    - Check the power supply to the ESP32. Insufficient power can cause the device to reboot unexpectedly.
    - Ensure that the device is not overheating or exposed to environmental conditions outside its operating range.
    - If the problem persists, try commenting out the `uploadToThingSpeak` function in `main.cpp` to see if the issue is related to network operations.
 
-### 6. **ESP32 Fails to Reconnect After Wi-Fi Disconnect**
+### 5. **ESP32 Fails to Reconnect After Wi-Fi Disconnect**
 - **Problem:** The ESP32 doesn't reconnect to Wi-Fi after losing the connection.
 - **Solution:**
    - Ensure the `connectToWiFi()` function in `utils.h` handles reconnections correctly. The function should retry connecting to the Wi-Fi network if it fails initially.
    - Double-check that the Wi-Fi network is stable and that the ESP32 is in range.
    - Monitor the serial output for any errors that might indicate why the connection isn't re-established.
 
-### 7. **General Debugging**
+### 6. **General Debugging**
 - **Problem:** The code is not working as expected, and no clear error message is shown.
 - **Solution:**
    - Use the serial monitor to print debug information at various stages in the code (e.g., when connecting to Wi-Fi, when serving a page, etc.).
